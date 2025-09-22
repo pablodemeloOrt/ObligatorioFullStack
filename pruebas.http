@@ -1,0 +1,90 @@
+### Prueba de vida
+get http://localhost:3000/api/test
+
+
+
+### Signup - Crear nuevo usuario
+POST http://localhost:3000/api/v1/signup
+Content-Type: application/json
+
+{
+  "name": "Homero Simpsons",
+  "email": "homero9@example.com",
+  "password": "123456"
+}
+
+### Login y guardar token
+POST http://localhost:3000/api/v1/login
+Content-Type: application/json
+
+{
+  "email": "homero9@example.com",
+  "password": "123456"
+}
+
+# > {% 
+# // Parseamos JSON y guardamos token globalmente
+# const body = response.json(); 
+# client.global.set("token", body.token); 
+# %}
+
+
+
+
+### Obtener todos los usuarios (ruta privada)
+GET http://localhost:3000/api/v1/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4Yjg5NmE5MmQzN2NmYzczNDM5YjM2NiIsImVtYWlsIjoiaG9tZXJvQGV4YW1wbGUuY29tIiwicm9sIjoiZW1wbGVhZG8iLCJpYXQiOjE3NTY5Mjk2ODgsImV4cCI6MTc1NjkzMzI4OH0.ckoiwIyEVrPkuBBk3GnAgnVYDM6u9fDy0oO3Idh2Lqw
+
+
+
+### obtener todas las tareas
+get http://localhost:3000/api/v1/todos/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YjhhMjllYWY0ZDgyYmUxODYxODBiYiIsImVtYWlsIjoiaG9tZXJvQGV4YW1wbGUuY29tIiwicm9sIjoiZW1wbGVhZG8iLCJpYXQiOjE3NTY5MzczMDMsImV4cCI6MTc1Njk0MDkwM30.w4QQtZgpYE4UOXut1R98sPrnSREmjp-wAg5x2I7YS0s
+
+
+### Obtener una tarea especifica 
+get http://localhost:3000/api/v1/todos/1
+
+
+### crear una tarea
+POST http://localhost:3000/api/v1/todos HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4Yzg5ODUxOTkwNzVhM2E4OTQ4NDRmMSIsImVtYWlsIjoiaG9tZXJvOUBleGFtcGxlLmNvbSIsImlhdCI6MTc1ODE1MTI0M30.GxZqVClCOio9RBsDZCKjhGa8DSnY_9_JR6az3pkShSk
+
+{
+    "title": "tarea clase 9"
+}
+
+### borrar una tarea
+delete http://localhost:3000/api/v1/todos/1
+
+
+### sin ruta asociada
+get http://localhost:3000/api/v1/ii
+
+
+
+### obtner tarea 
+get http://localhost:3000/api/v1/todos  
+Authorization: 123
+
+
+
+### crear un usuario
+POST http://localhost:3000/api/v1/usuarios HTTP/1.1
+content-type: application/json
+
+{
+    "username": "Primer tarea", 
+    "password":"123"
+}
+
+
+### crear un usuario
+get http://localhost:3000/api/v1/login
+content-type: application/json
+
+{
+    "username": "Primer tarea", 
+    "password":"123"
+}
