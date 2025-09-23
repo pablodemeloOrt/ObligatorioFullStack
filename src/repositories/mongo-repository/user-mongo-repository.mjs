@@ -34,7 +34,6 @@ const userMongoRepository = {
     },
 
 
-
     //actualiza el usuario
     async updateUser(data) {
         return User.findByIdAndUpdate(data);

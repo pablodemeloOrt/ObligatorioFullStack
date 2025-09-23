@@ -1,15 +1,15 @@
 import { createError } from "../error/create-error.mjs";
 import userMongoRepository from "../repositories/mongo-repository/user-mongo-repository.mjs";
-import todoRepository from "../repositories/todo-repository.mjs";
+import taskRepository from "../repositories/task-repository.mjs";
 
 
 
 export const createTodo = async (req, res) => {
     try {
-        const todo = req.body;
+        const task = req.body;
         const userId = req.user.id;
-        todo.userId = userId;
-        const tarea = await todoRepository.createTodo(todo);
+        task.userId = userId;
+        const tarea = await taskRepository.createTodo(task);
         res.status(201).json({ tarea });
     } catch (error) {
         res.status(400).json({ message: "No pudo crear la tarea" });
@@ -23,7 +23,7 @@ export const getTodoById = async (req, res) => {
     const data = {
         _id, userId
     };
-    const tarea = await todoRepository.getTodoByUser(data);
+    const tarea = await taskRepository.getTodoByUser(data);
     res.status(200).json({ tarea });
 }
 
@@ -31,7 +31,7 @@ export const getTodoById = async (req, res) => {
 
 //obtener tareas del usuario 
 export const getTodosByUser = async (req, res) => {
-    console.log("entro en todo by id")
+    console.log("entro en task by id")
     try {
 
         if (true) {
@@ -39,9 +39,9 @@ export const getTodosByUser = async (req, res) => {
             throw new Error("prueba");
         }
 
-        console.log("entro en todo by id")
+        console.log("entro en task by id")
         const { id: userId } = req.user;
-        const userTodos = await todoRepository.getAllTodos({ userId });
+        const userTodos = await taskRepository.getAllTodos({ userId });
         res.status(200).json({ tareas: userTodos });
     } catch (error) {
         //res.status(400).json({ message: "No pudo obtener las tareas" }); 
@@ -56,7 +56,7 @@ export const deleteTodo = async (req, res) => {
     try {
         console.log('entro en delete');
         const _id = req.params.id;
-        await todoRepository.deleteTodo({ _id });
+        await taskRepository.deleteTodo({ _id });
         res.status(200).json({ message: "Se borro correctamente" });
     } catch (error) {
         res.status(400).json({ message: "No pudo obtener las tareas" });

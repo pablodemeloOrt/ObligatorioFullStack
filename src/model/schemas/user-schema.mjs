@@ -9,7 +9,7 @@ const userSchema = new mongoose.Schema({
         lowercase: true, // convierte a minúsculas
         match: [/.+@.+\..+/, 'Por favor ingresa un email válido'] // regex simple para validar email
     },
-    edad: { type: Number }
+    age: { type: Number }
 }, {
     timestamps: true
 })

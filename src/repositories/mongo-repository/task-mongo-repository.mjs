@@ -1,13 +1,11 @@
-import Todo from "../../model/todo.mjs";
+import Task from "../../model/task.mjs";
 
+const taskMongoRepository = {
 
-
-const todoMongoRepository = {
-
-    async createTodo(data) {
+    async createTask(data) {
         try {
-            const todo = new Todo(data)
-            const tarea = await todo.save();
+            const task = new Task(data)
+            const tarea = await task.save();
             console.log('tarea', tarea)
             return tarea;
         } catch (error) {
@@ -16,36 +14,36 @@ const todoMongoRepository = {
     },
 
     //obtener una tarea del usuario
-    async getTodoByUser(data) {
-        return Todo.findOne(data);
+    async getTaskByUser(data) {
+        return Task.findOne(data);
     },
 
     //todas las tareas del usuario
-    async getAllTodos(data) {
-        return Todo.find(data);
+    async getAllTask(data) {
+        return Task.find(data);
     },
 
 
     //borrar tarea
-    async deleteTodo(data) {
+    async deleteTask(data) {
         console.log('data', data)
         const { _id } = data;
         if (_id) {
-            Todo.deleteOne(data);
+            Task.deleteOne(data);
         } else {
             return new Error("Hubo un error al borrar la tarea, el id no puede ser nulo");
         }
     },
     //reemplaza el viejo por el nuevo
-    async replaceTodo(data) {
-        return Todo.findOneAndReplace(data);
+    async replaceTask(data) {
+        return Task.findOneAndReplace(data);
     },
 
     //actualiza la tarea
-    async updateTodo() {
-        return Todo.findOneAndUpdate(data);
+    async updateTask() {
+        return Task.findOneAndUpdate(data);
     }
 }
 
 
-export default todoMongoRepository;
+export default taskMongoRepository;

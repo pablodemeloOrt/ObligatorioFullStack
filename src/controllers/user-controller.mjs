@@ -33,7 +33,5 @@ export const loginUser = async (req, res) => {
         res.status(401).json({ message: "Error en login, verifique credenciales" });
     }
 
-
-
 }
 
