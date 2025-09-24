@@ -32,6 +32,17 @@ export const loginUser = async (req, res) => {
     } else {
         res.status(401).json({ message: "Error en login, verifique credenciales" });
     }
-
 }
+//actualiza el plan del usuario
+export const upgradePlan = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const userUpdated = await userRepository.upgradePlan({ _id: id });
+        res.status(200).json({ user: userUpdated });
+    } catch (error) {
+        res.status(400).json({ message: error.message || "No pudo actualizar el plan del usuario" });
+    }
+}
+        
+
 

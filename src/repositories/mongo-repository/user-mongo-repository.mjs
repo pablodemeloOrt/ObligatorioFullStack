@@ -4,7 +4,6 @@ import User from "../../model/user.mjs";
 
 const userMongoRepository = {
 
-
     async createUser(data) {
         try {
             const user = new User(data)
@@ -12,7 +11,7 @@ const userMongoRepository = {
             delete userCreado._doc.password;
             return userCreado;
         } catch (error) {
-            console.log('No se pudo crear la tarea en mongo', error)
+            console.log('No se pudo crear el usuario en mongo', error)
         }
     },
 
@@ -39,6 +38,29 @@ const userMongoRepository = {
         return User.findByIdAndUpdate(data);
     },
 
-}
+    //actualiza el usuario
+    async upgradePlan(data) {
+        try {
+            const { _id } = data;
+            const user = await User.findById(_id);
+            if (!user) {
+                throw new Error("Usuario no encontrado");
+            }
+            // Solo permitir cambio si el plan actual es 'plus'
+            if (user.plan !== 'plus') {
+                throw new Error("Solo puedes cambiar de plan si tu plan actual es 'plus'");
+            }
+            user.plan = 'premium';
+            await user.save();
+            // No devolver el password
+            const userObj = user.toObject();
+            delete userObj.password;
+            return userObj;
+        } catch (error) {
+            console.log('No se pudo actualizar el plan del usuario en mongo', error);
+            throw error;
+        }
+    }
+};
 
 export default userMongoRepository;

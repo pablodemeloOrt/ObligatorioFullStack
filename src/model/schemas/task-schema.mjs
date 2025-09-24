@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
-import { TaskStatus } from '../constants/task-status.enum.mjs';
+import TaskStatus from '../../constants/task-status.mjs';
+
 
 const taskSchema = new mongoose.Schema({
   title: { type: String, required: true },
@@ -8,10 +9,10 @@ const taskSchema = new mongoose.Schema({
   asignedTo: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   status: {
     type: String,
-    enum: Object.values(TaskStatus),   
+    enum: Object.values(TaskStatus),
     default: TaskStatus.BACKLOG
   },
   createdAt: { type: Date, default: Date.now }
 });
 
-export default mongoose.model('Task', taskSchema);
+export default taskSchema;

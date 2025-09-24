@@ -1,5 +1,7 @@
 ### Prueba de vida
-get http://localhost:3000/api/test
+get http://localhost:3000/api/test 
+
+
 
 
 
@@ -37,9 +39,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4Yjg5NmE5M
 
 
 
-### obtener todas las tareas
-get http://localhost:3000/api/v1/todos/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YjhhMjllYWY0ZDgyYmUxODYxODBiYiIsImVtYWlsIjoiaG9tZXJvQGV4YW1wbGUuY29tIiwicm9sIjoiZW1wbGVhZG8iLCJpYXQiOjE3NTY5MzczMDMsImV4cCI6MTc1Njk0MDkwM30.w4QQtZgpYE4UOXut1R98sPrnSREmjp-wAg5x2I7YS0s
+### obtener todas las categorias que es simplmenete un enum
+get http://localhost:3000/api/v1/tasks/categories
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDM0NDUxMjdjOGExMDg5ZGM0NWQ3YSIsImVtYWlsIjoiaG9tZXJvOUBleGFtcGxlLmNvbSIsImlhdCI6MTc1ODY3NjM1OH0.9PT3vbZL6rPeOXtbp-nOw8vWaQiiBujp6AzY3tGeJcw
 
 
 ### Obtener una tarea especifica 
@@ -59,8 +61,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4Yzg5ODUxO
 delete http://localhost:3000/api/v1/todos/1
 
 
-### sin ruta asociada
-get http://localhost:3000/api/v1/ii
+### sObtener categorias
+get http://localhost:3000/api/v1/categories
 
 
 

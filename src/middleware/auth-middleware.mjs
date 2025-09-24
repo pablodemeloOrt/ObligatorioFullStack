@@ -25,7 +25,6 @@ export const authMiddleware = (req, res, next) => {
         } else {
             //se asigna el usuario al req user
             console.log('value', value)
-
             req.user = value;
             //se sigue adelante con next
             next();

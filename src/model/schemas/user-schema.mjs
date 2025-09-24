@@ -1,4 +1,5 @@
 import mongoose, { Types } from "mongoose";
+import Plan from "../../constants/plan.mjs";
 
 const userSchema = new mongoose.Schema({
     name: { type: String, required: true },
@@ -9,12 +10,13 @@ const userSchema = new mongoose.Schema({
         lowercase: true, // convierte a minúsculas
         match: [/.+@.+\..+/, 'Por favor ingresa un email válido'] // regex simple para validar email
     },
-    age: { type: Number }
+    age: { type: Number },
+    plan: { type: String, enum: Object.values(Plan), default: Plan.PLUS }
+
 }, {
     timestamps: true
 })
 
-//indice email unico y ascendente
 userSchema.index({ email: 1 }, { unique: true });
 
 export default userSchema;

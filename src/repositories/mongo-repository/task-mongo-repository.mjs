@@ -1,15 +1,27 @@
 import Task from "../../model/task.mjs";
+import Project from "../../model/project.mjs";
 
 const taskMongoRepository = {
 
     async createTask(data) {
         try {
-            const task = new Task(data)
+            // Validar que venga el id del proyecto
+            const { projectId } = data;
+            if (!projectId) {
+                throw new Error("La tarea debe tener un projectId asignado");
+            }
+            // Verificar que el proyecto exista
+            const project = await Project.findById(projectId);
+            if (!project) {
+                throw new Error("El proyecto asignado no existe");
+            }
+            const task = new Task(data);
             const tarea = await task.save();
-            console.log('tarea', tarea)
+            console.log('tarea', tarea);
             return tarea;
         } catch (error) {
-            console.log('No se pudo crear la tarea en mongo', error)
+            console.log('No se pudo crear la tarea en mongo', error);
+            throw error;
         }
     },
 
