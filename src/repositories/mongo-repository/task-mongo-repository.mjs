@@ -25,6 +25,11 @@ const taskMongoRepository = {
         }
     },
 
+    //obtener tarea por id 
+    async getTaskById(data) {
+        return Task.findOne(data);
+    },
+    
     //obtener una tarea del usuario
     async getTaskByUser(data) {
         return Task.findOne(data);
@@ -38,12 +43,20 @@ const taskMongoRepository = {
 
     //borrar tarea
     async deleteTask(data) {
-        console.log('data', data)
-        const { _id } = data;
-        if (_id) {
-            Task.deleteOne(data);
-        } else {
-            return new Error("Hubo un error al borrar la tarea, el id no puede ser nulo");
+        try {
+            console.log('data', data);
+            const { _id } = data;
+            if (!_id) {
+                throw new Error("Hubo un error al borrar la tarea, el id no puede ser nulo");
+            }
+            const task = await Task.findById(_id);
+            if (!task) {
+                throw new Error("No existe una tarea con ese id");
+            }
+            await Task.deleteOne({ _id });
+        } catch (error) {
+            console.log('No se pudo borrar la tarea en mongo', error);
+            throw error;
         }
     },
     //reemplaza el viejo por el nuevo

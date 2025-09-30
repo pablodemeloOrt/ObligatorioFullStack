@@ -12,6 +12,7 @@ const userMongoRepository = {
             return userCreado;
         } catch (error) {
             console.log('No se pudo crear el usuario en mongo', error)
+            throw error;
         }
     },
 
@@ -47,10 +48,10 @@ const userMongoRepository = {
                 throw new Error("Usuario no encontrado");
             }
             // Solo permitir cambio si el plan actual es 'plus'
-            if (user.plan !== 'plus') {
+            if (user.plan !== "plus") {
                 throw new Error("Solo puedes cambiar de plan si tu plan actual es 'plus'");
             }
-            user.plan = 'premium';
+            user.plan = "premium";
             await user.save();
             // No devolver el password
             const userObj = user.toObject();

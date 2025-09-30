@@ -5,6 +5,7 @@ export const validateCreateTask = Joi.object({
     title: Joi.string().min(3).max(40).required(),
     description: Joi.string().allow(""),
     projectId: Joi.string().required(),
+    assignedTo: Joi.string(), // ✅ lo agregás acá
 });
 
 // Para actualizar una tarea (PUT/PATCH)

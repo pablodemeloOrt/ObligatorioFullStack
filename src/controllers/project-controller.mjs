@@ -4,8 +4,14 @@ import "dotenv/config";
 export const createProject = async (req, res) => {
     try {
         const project = req.body;
-        console.log('project', project)
-        const projectSaved = await projectRepository.createProject(project);
+        const { id: userId } = req.user;
+        // Agregar el usuario logueado como miembro inicial
+        const projectData = {
+            ...project,
+            userId,
+            members: [userId]
+        };
+        const projectSaved = await projectRepository.createProject(projectData);
         res.status(200).json({ project: projectSaved });
     } catch (error) {
         res.status(400).json({ message: "No pudo crear el proyecto" });

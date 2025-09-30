@@ -11,7 +11,8 @@ const userSchema = new mongoose.Schema({
         match: [/.+@.+\..+/, 'Por favor ingresa un email válido'] // regex simple para validar email
     },
     age: { type: Number },
-    plan: { type: String, enum: Object.values(Plan), default: Plan.PLUS }
+    plan: { type: String, enum: Object.values(Plan), default: Plan.PLUS },
+    tipoUsuario: { type: String, enum: ['admin', 'user'], default: 'user' }
 
 }, {
     timestamps: true

@@ -10,7 +10,12 @@ export const createTask = async (req, res) => {
     try {
         const task = req.body;
         const userId = req.user.id;
-        task.userId = userId;
+        // Asignar correctamente el usuario y el proyecto
+        const newTask = {
+            ...task,
+            assignedTo: userId,
+            project: task.projectId
+        };
 
         // Obtener el usuario para saber su plan
         const user = await userMongoRepository.getUserById(userId);
@@ -18,18 +23,18 @@ export const createTask = async (req, res) => {
             return res.status(400).json({ message: "Usuario no encontrado" });
         }
 
-
-        // Contar tareas del usuario en el proyecto específico
-        const { projectId } = task;
-        if (!projectId) {
+        // Validar que venga el id del proyecto
+        if (!task.projectId) {
             return res.status(400).json({ message: "Falta el projectId en la tarea" });
         }
-        const projectTasks = await taskRepository.getAllTask({ userId, projectId });
+
+        // Contar tareas del usuario en el proyecto específico
+        const projectTasks = await taskRepository.getAllTask({ assignedTo: userId, project: task.projectId });
         if (user.plan === Plan.PLUS && projectTasks.length >= 10) {
             return res.status(403).json({ message: "Los usuarios PLUS solo pueden tener hasta 10 tareas por proyecto" });
         }
 
-        const tarea = await taskRepository.createTask(task);
+        const tarea = await taskRepository.createTask(newTask);
         res.status(201).json({ tarea });
     } catch (error) {
         res.status(400).json({ message: "No pudo crear la tarea" });
@@ -39,11 +44,10 @@ export const createTask = async (req, res) => {
 //devuelve una tarea para un cierto id del req
 export const getTaskById = async (req, res) => {
     const _id = req.params.id;
-    const userId = req.user.id;
     const data = {
-        _id, userId
+        _id, _id
     };
-    const tarea = await taskRepository.getTaskByUser(data);
+    const tarea = await taskRepository.getTaskById(data);
     res.status(200).json({ tarea });
 }
 
@@ -67,7 +71,7 @@ export const getTasksByUserAndProject = async (req, res) => {
         console.log("entro en task by id and project")
         const { id: userId } = req.user;
         const { projectId } = req.params;
-        const userTasks = await taskRepository.getAllTasks({ userId, projectId });
+        const userTasks = await taskRepository.getAllTask({ assignedTo: userId, project: projectId });
         res.status(200).json({ tareas: userTasks });
     } catch (error) {
         throw createError("No pudo obtener las tareas", 400);
@@ -100,13 +104,13 @@ export const deleteTask = async (req, res) => {
         await taskRepository.deleteTask({ _id });
         res.status(200).json({ message: "Se borro correctamente" });
     } catch (error) {
-        res.status(400).json({ message: "No pudo obtener las tareas" });
+        res.status(400).json({ message: error.message || "No pudo obtener la tarea" });
     }
 }
 
-export const getCategories = async (req, res) => {
+export const getCategories = (req, res) => {
     try {
-        const categories = await categories; 
+        const categories = Object.values(Category);
         res.status(200).json({ categories });
     } catch (error) {
         res.status(400).json({ message: "No pudo obtener las categorias" });

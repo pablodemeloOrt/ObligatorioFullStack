@@ -17,6 +17,15 @@ export const createUser = async (req, res) => {
     }
 }
 
+export const getAllUsers = async (req, res) => {
+    try {
+        const users = await userRepository.getUsers();
+        res.status(200).json({ users: users });
+    } catch (error) {
+        res.status(400).json({ message: "No pudo obtener los usuarios" });
+    }
+}
+
 
 export const loginUser = async (req, res) => {
 

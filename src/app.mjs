@@ -2,8 +2,10 @@ import express from "express"
 import "dotenv/config";
 import { connectMongo } from "./config/mongo-config.mjs";
 import { connectRedis } from "./config/redis-config.mjs";
-import v1Rutas from "./routes/v1/task.mjs";
-import v1Publicas from "./routes/v1/user.mjs";
+import v1Tasks from "./routes/v1/task.mjs";
+import v1Users from "./routes/v1/user.mjs";
+import v1Publicas from "./routes/v1/public.mjs";
+import v1Projects from "./routes/v1/project.mjs";
 import { xssSanitizer } from "./middleware/sanitizer-middleware.mjs";
 
 const app = express();
@@ -19,9 +21,20 @@ app.use(xssSanitizer)
 
 app.use("/api/v1", v1Publicas);
 
+app.use("/api/v1/users", v1Users);
 
-app.use("/api/v1/tasks", v1Rutas);
+app.use("/api/v1/tasks", v1Tasks);
 
+app.use("/api/v1/projects", v1Projects);
+
+
+app.get("/api/v1", (req, res) => {
+  res.json({
+    status: "ok",
+    message: "API funcionando 🚀",
+    timestamp: new Date().toISOString()
+  });
+});
 
 app.use((err, req, res, next) => {
     console.log('err', err)
@@ -32,6 +45,8 @@ app.use((err, req, res, next) => {
     }
 
 }
+
+
 
 )
 

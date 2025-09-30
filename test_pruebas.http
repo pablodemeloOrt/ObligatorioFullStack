@@ -1,0 +1,34 @@
+//variable para token
+
+### Login y guardar token
+POST http://localhost:3000/api/v1/login
+Content-Type: application/json
+{
+  "email": "homero@example.com",
+  "password": "123456"
+}
+
+
+
+### Obtener todos los proyectos
+GET http://localhost:3000/api/v1/projects
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZGIxYWI5NzBhOGE3ZGE0YjllNjM5NSIsImVtYWlsIjoiaG9tZXJvQGV4YW1wbGUuY29tIiwiaWF0IjoxNzU5MTkyMDQ5fQ.LQIskKxAFjJ2gJwFbRbA65VGp-KA6WRmownIybUSjEQ
+
+### Obtener un proyecto por ID
+GET http://localhost:3000/api/v1/projects/68db2597ce047d41cc85413d
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZGIxYWI5NzBhOGE3ZGE0YjllNjM5NSIsImVtYWlsIjoiaG9tZXJvQGV4YW1wbGUuY29tIiwiaWF0IjoxNzU5MTkwODIzfQ.vv7hAVGzpfSHSmq5h6tVpESMxGmpnGrd-7FkVX4-nr4
+
+### Actualizar un proyecto
+PUT http://localhost:3000/api/v1/projects/66eef0fa2f27d902b27f0a33
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZGIxYWI5NzBhOGE3ZGE0YjllNjM5NSIsImVtYWlsIjoiaG9tZXJvQGV4YW1wbGUuY29tIiwiaWF0IjoxNzU5MTkwODIzfQ.vv7hAVGzpfSHSmq5h6tVpESMxGmpnGrd-7FkVX4-nr4
+Content-Type: application/json
+
+{
+    "name": "Proyecto Obligatorio Actualizado",
+    "description": "Descripción actualizada",
+    "category": "Testing"
+}
+
+
+
+
