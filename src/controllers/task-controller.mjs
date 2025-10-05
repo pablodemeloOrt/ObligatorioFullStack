@@ -31,7 +31,7 @@ export const createTask = async (req, res) => {
         // Contar tareas del usuario en el proyecto específico
         const projectTasks = await taskRepository.getAllTask({ assignedTo: userId, project: task.projectId });
         if (user.plan === Plan.PLUS && projectTasks.length >= 10) {
-            return res.status(403).json({ message: "Los usuarios PLUS solo pueden tener hasta 10 tareas por proyecto" });
+            return res.status(403).json({ message: "Los usuarios PLUS tienen como límite 10 tareas por proyecto" });
         }
 
         const tarea = await taskRepository.createTask(newTask);
