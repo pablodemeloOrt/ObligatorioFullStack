@@ -1,3 +1,5 @@
+### PÚBLICAS ###
+
 ### Prueba de vida
 get http://localhost:3000/api/v1
 
@@ -6,8 +8,8 @@ POST http://localhost:3000/api/v1/signup
 Content-Type: application/json
 
 {
-  "name": "Homero Simpsons",
-  "email": "homero2@example.com",
+  "name": "Hons",
+  "email": "test@example.com",
   "password": "123456"
 }
 
@@ -20,18 +22,23 @@ Content-Type: application/json
   "password": "123456"
 }
 
-# > {% 
-# const body = response.json();
-# client.global.set("token", body.token);
-# %}
+### USER - RUTAS PRIVADAS ###
 
 ### Obtener todos los usuarios (ruta privada)
 GET http://localhost:3000/api/v1/users
-Authorization: Bearer eyJhbGciOiJasdasdasdasdasdasIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZGIxNmQ1ODhiNzE0ODBmOTI4ZWJhZCIsImVtYWlsIjoiaG9tZXJvOUBleGFtcGxlLmNvbSIsImlhdCI6MTc1OTE4ODk0M30.hQ9EUj9B8RZ4MuS80x5CLhZUydpsVMnSn7OR-y3SKzY
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZGIxYjE2OTY3MzMxMWZmNDY1ODI3NSIsImVtYWlsIjoiaG9tZXJvMUBleGFtcGxlLmNvbSIsImlhdCI6MTc1OTY2NjU0OX0.abf1JgwwTySdLbbC_2zcwCc3bh5v72cHhxKD_pBiEpE
 
-### Obtener una tarea especifica 
-get http://localhost:3000/api/v1/tasks/68db283065f7edc6bfe2eb0d
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDM0NDUxMjdjOGExMDg5ZGM0NWQ3YSIsImVtYWlsIjoiaG9tZXJvOUBleGFtcGxlLmNvbSIsImlhdCI6MTc1ODY3NjM1OH0.9PT3vbZL6rPeOXtbp-nOw8vWaQiiBujp6AzY3tGeJcw
+### upgrade user plan
+
+PATCH http://localhost:3000/api/v1/users/plan/68db1b169673311ff4658275
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZGIxYjE2OTY3MzMxMWZmNDY1ODI3NSIsImVtYWlsIjoiaG9tZXJvMUBleGFtcGxlLmNvbSIsImlhdCI6MTc1OTY2NjU0OX0.abf1JgwwTySdLbbC_2zcwCc3bh5v72cHhxKD_pBiEpE
+Content-Type: application/json
+
+{
+  "email": "homero1@example.com",
+  "password": "123456"
+}
+
 
 ### PROYECTOS
 ### Crear un nuevo proyecto
@@ -45,7 +52,7 @@ Content-Type: application/json
     "category": "Desarrollo",
     "owner": "68db1ab970a8a7da4b9e6395"
 }
-### TAREAS
+### TASKS - RUTAS PRIVADAS ###
 
 ### crear una tarea
 POST http://localhost:3000/api/v1/tasks 
@@ -56,7 +63,7 @@ Content-Type: application/json
   "title": "Nueva tarea",
   "description": "Descripción de la tarea",
   "assignedTo": "68db1b169673311ff4658275",
-  "projectId": "68db2a50bd36261bd5ce5f06"
+  "projectId": "68db2a50bd36261bd5ce5f06" 
 }
 
 ### Obtener todas las tareas del usuario logueado y proyecto.
@@ -68,17 +75,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZGIxYjE2O
 DELETE http://localhost:3000/api/v1/tasks/68db283065f7edc6bfe2eb0d
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZGIxYWI5NzBhOGE3ZGE0YjllNjM5NSIsImVtYWlsIjoiaG9tZXJvQGV4YW1wbGUuY29tIiwiaWF0IjoxNzU5MTkyNjIxfQ.XIT-KWNQm0EhT5dOcwGee3y24R3D2X2ruzkn_6aZgIQ
 
-
-### upgrade user plan
-
-PATCH http://localhost:3000/api/v1/users/plan/68db1b169673311ff4658275
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZGIxYWI5NzBhOGE3ZGE0YjllNjM5NSIsImVtYWlsIjoiaG9tZXJvQGV4YW1wbGUuY29tIiwiaWF0IjoxNzU5MTkyNjIxfQ.XIT-KWNQm0EhT5dOcwGee3y24R3D2X2ruzkn_6aZgIQ
-Content-Type: application/json
-
-{
-  "email": "homero1@example.com",
-  "password": "123456"
-}
+### Obtener una tarea especifica 
+get http://localhost:3000/api/v1/tasks/68db283065f7edc6bfe2eb0d
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDM0NDUxMjdjOGExMDg5ZGM0NWQ3YSIsImVtYWlsIjoiaG9tZXJvOUBleGFtcGxlLmNvbSIsImlhdCI6MTc1ODY3NjM1OH0.9PT3vbZL6rPeOXtbp-nOw8vWaQiiBujp6AzY3tGeJcw
 
 
 ### Obtener las categorias de tasks

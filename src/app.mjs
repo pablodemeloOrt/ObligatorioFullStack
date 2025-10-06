@@ -31,7 +31,7 @@ app.use("/api/v1/projects", v1Projects);
 app.get("/api/v1", (req, res) => {
   res.json({
     status: "ok",
-    message: "API funcionando 🚀",
+    message: "API funcionando",
     timestamp: new Date().toISOString()
   });
 });

@@ -6,13 +6,21 @@ import "dotenv/config";
 export const createUser = async (req, res) => {
     try {
         const user = req.body;
+        // Validación de datos requeridos
+        if (!user.name || !user.email || !user.password) {
+            return res.status(400).json({ message: "Faltan datos requeridos (name, email o password)" });
+        }
         const { password } = user;
         const hashPassword = await bcrypt.hash(password, 10);
         user.password = hashPassword;
         console.log('user', user)
         const userSaved = await userRepository.createUser(user);
-        res.status(200).json({ usuario: userSaved });
+        res.status(201).json({ usuario: userSaved });
     } catch (error) {
+        // Validación de usuario duplicado
+        if (error.code === 11000 && error.keyPattern && error.keyPattern.email) {
+            return res.status(409).json({ message: "El email ya está registrado" });
+        }
         res.status(400).json({ message: "No pudo crear usuario" });
     }
 }
