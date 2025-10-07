@@ -1,5 +1,5 @@
 import express from "express";
-import { createUser, loginUser, upgradePlan, getAllUsers} from "../../controllers/user-controller.mjs";
+import { createUser, loginUser, upgradePlan, getAllUsers, downgradePlan} from "../../controllers/user-controller.mjs";
 import { authMiddleware } from "../../middleware/auth-middleware.mjs";
 import { validateRequest } from "../../middleware/validation.middleware.mjs";
 import { validateLogin, validateSingup } from "../../validations/validation-user.mjs";
@@ -9,7 +9,8 @@ const routes = express.Router();
 
 routes.get("/", authMiddleware, getAllUsers);
 //routes.get("/", getAllUsers);
-routes.patch("/plan/:id", authMiddleware, validateRequest(validateLogin, reqValidate.BODY), upgradePlan);
+routes.patch("/plan/upgrade/:id", authMiddleware, validateRequest(validateLogin, reqValidate.BODY), upgradePlan);
+routes.patch("/plan/downgrade/:id", authMiddleware, validateRequest(validateLogin, reqValidate.BODY), downgradePlan);
 
 
 

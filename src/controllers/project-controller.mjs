@@ -12,7 +12,7 @@ export const createProject = async (req, res) => {
             members: [userId]
         };
         const projectSaved = await projectRepository.createProject(projectData);
-        res.status(200).json({ project: projectSaved });
+        res.status(201).json({ project: projectSaved });
     } catch (error) {
         res.status(400).json({ message: "No pudo crear el proyecto" });
     }
@@ -21,12 +21,13 @@ export const createProject = async (req, res) => {
 export const getProjectsByUser = async (req, res) => {
     try {
         const { id: userId } = req.user;
-        const userProjects = await projectRepository.getAllProjects({ userId });
+        const userProjects = await projectRepository.getAllProjects(userId);
         res.status(200).json({ projects: userProjects });
     } catch (error) {
         res.status(400).json({ message: "No pudo obtener los proyectos" });
     }
 }
+
 export const deleteProject = async (req, res) => {
     try {
         console.log('entro en delete');
@@ -41,9 +42,8 @@ export const updateProject = async (req, res) => {
     try {
         const _id = req.params.id;
         const project = req.body;
-        const data = { _id, ...project };
-        const projectUpdated = await projectRepository.updateProject(data);
-        res.status(200).json({ project: projectUpdated });
+        const projectUpdated = await projectRepository.updateProject(_id, project);
+        res.status(201).json({ project: projectUpdated });
     } catch (error) {
         res.status(400).json({ message: "No pudo actualizar el proyecto" });
     }

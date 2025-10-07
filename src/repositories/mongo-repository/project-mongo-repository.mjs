@@ -18,10 +18,10 @@ const projectMongoRepository = {
         return Project.findOne(data);
     },
 
-    //todos los proyectos del usuario
-    async getAllProjects(data) {
-        return Project.find(data);
-    }, 
+    //todos los proyectos donde el usuario es miembro
+    async getAllProjects(userId) {
+        return Project.find({ members: userId });
+    },
     //borrar proyecto
     async deleteProject(data) {
         console.log('data', data)
@@ -37,8 +37,8 @@ const projectMongoRepository = {
     },
 
     //actualiza el proyecto
-    async updateProject(data) {
-        return Project.findOneAndUpdate(data);
+    async updateProject(_id, updateData) {
+        return Project.findByIdAndUpdate(_id, updateData, { new: true });
     }
 }
 export default projectMongoRepository;

@@ -61,7 +61,31 @@ const userMongoRepository = {
             console.log('No se pudo actualizar el plan del usuario en mongo', error);
             throw error;
         }
+    },
+    //cambia el plan del usuario
+    async downgradePlan(data) {
+        try {
+            const { _id } = data;
+            const user = await User.findById(_id);
+            if (!user) {
+                throw new Error("Usuario no encontrado");
+            }
+            // Solo permitir cambio si el plan actual es 'premium'
+            if (user.plan !== "premium") {
+                throw new Error("Solo puedes cambiar de plan si tu plan actual es 'premium'");
+            }
+            user.plan = "plus";
+            await user.save();
+            // No devolver el password
+            const userObj = user.toObject();
+            delete userObj.password;
+            return userObj;
+        } catch (error) {
+            console.log('No se pudo cambiar el plan del usuario en mongo', error);
+            throw error;
+        }
     }
 };
+
 
 export default userMongoRepository;
