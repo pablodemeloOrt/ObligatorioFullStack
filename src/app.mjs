@@ -7,6 +7,8 @@ import v1Users from "./routes/v1/user.mjs";
 import v1Publicas from "./routes/v1/public.mjs";
 import v1Projects from "./routes/v1/project.mjs";
 import { xssSanitizer } from "./middleware/sanitizer-middleware.mjs";
+import serverless from "serverless-http";
+
 
 const app = express();
 const port = process.env.port ?? 3000;
