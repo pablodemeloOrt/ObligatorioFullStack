@@ -50,13 +50,9 @@ app.use((err, req, res, next) => {
         res.status(500).json({ message: "Error no controlado" });
     }
 
-}
+});
 
-
-
-)
-
-export const handler = serverless(app);
+export default serverless(app);
 //app.listen(port, () => console.log(`Escuchando en el puerto: ${port}`));
 
 
