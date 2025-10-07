@@ -1,11 +1,54 @@
-// Middleware para verificar roles de usuario
-export const roleMiddleware = (requiredRole) => {
-    return (req, res, next) => {
-        const user = req.user; // Asumimos que el usuario ya está autenticado y su información está en req.user
-        if (user && user.role === requiredRole) {
-            next(); // El usuario tiene el rol requerido, continuar
-        } else {
-            res.status(403).json({ message: "Acceso denegado: no tienes el rol necesario" });
-        }
-    };
-}
+
+// Crear tarea
+export const canCreateTask = (req, res, next) => {
+    const user = req.user;
+    const { assignedTo } = req.body;
+
+
+    if (user.tipoUsuario === "admin") {
+        return next();
+    }
+    //mostra las dos variables que vamos a comparar
+    console.log('Comparacion tipoUser:', String(user.tipoUsuario), user.tipoUsuario === "user")
+    console.log('Comparacion assignedTo:', String(assignedTo), String(user.id))
+    if (
+        String(user.tipoUsuario) === "user" &&
+        (!assignedTo || String(assignedTo) === String(user.id))
+    ) {
+        return next();
+    }
+    return res.status(403).json({ message: "Solo puedes crear tareas para ti mismo" });
+};
+
+// Editar tarea
+export const canEditTask = (task) => (req, res, next) => {
+    const user = req.user;
+    if (user.tipoUsuario === "admin") {
+        return next();
+    }
+    if (user.tipoUsuario === "user" && String(task.assignedTo) === String(user.id || user._id)) {
+        return next();
+    }
+    return res.status(403).json({ message: "Solo puedes editar tus propias tareas" });
+};
+
+// Mover tarea de columna
+export const canMoveTask = (task) => (req, res, next) => {
+    const user = req.user;
+    if (user.tipoUsuario === "admin") {
+        return next();
+    }
+    if (user.tipoUsuario === "user" && String(task.assignedTo) === String(user.id || user._id)) {
+        return next();
+    }
+    return res.status(403).json({ message: "Solo puedes mover tus propias tareas" });
+};
+
+// Eliminar tarea
+export const canDeleteTask = (req, res, next) => {
+    const user = req.user;
+    if (user.tipoUsuario === "admin") {
+        return next();
+    }
+    return res.status(403).json({ message: "Solo el administrador puede eliminar tareas" });
+};
