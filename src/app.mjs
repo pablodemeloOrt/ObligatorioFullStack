@@ -54,7 +54,8 @@ app.use((err, req, res, next) => {
 
 )
 
-app.listen(port, () => console.log(`Escuchando en el puerto: ${port}`));
+export const handler = serverless(app);
+//app.listen(port, () => console.log(`Escuchando en el puerto: ${port}`));
 
 
 
