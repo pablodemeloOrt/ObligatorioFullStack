@@ -19,6 +19,10 @@ app.use(express.json());
 //middelware sanitizado
 app.use(xssSanitizer)
 
+app.get("/", (req, res) => {
+  res.send("API REST con Express y MongoDB");
+});
+
 app.use("/api/v1", v1Publicas);
 
 app.use("/api/v1/users", v1Users);
