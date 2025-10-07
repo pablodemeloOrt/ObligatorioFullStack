@@ -4,13 +4,10 @@ export const canCreateTask = (req, res, next) => {
     const user = req.user;
     const { assignedTo } = req.body;
 
-
     if (user.tipoUsuario === "admin") {
         return next();
     }
-    //mostra las dos variables que vamos a comparar
-    console.log('Comparacion tipoUser:', String(user.tipoUsuario), user.tipoUsuario === "user")
-    console.log('Comparacion assignedTo:', String(assignedTo), String(user.id))
+    
     if (
         String(user.tipoUsuario) === "user" &&
         (!assignedTo || String(assignedTo) === String(user.id))
@@ -26,7 +23,11 @@ export const canEditTask = (task) => (req, res, next) => {
     if (user.tipoUsuario === "admin") {
         return next();
     }
-    if (user.tipoUsuario === "user" && String(task.assignedTo) === String(user.id || user._id)) {
+
+    if (
+        String(user.tipoUsuario) === "user" &&
+        (!assignedTo || String(assignedTo) === String(user.id))
+    ) {
         return next();
     }
     return res.status(403).json({ message: "Solo puedes editar tus propias tareas" });
