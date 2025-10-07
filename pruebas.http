@@ -26,7 +26,7 @@ Content-Type: application/json
 
 ### Obtener todos los usuarios (ruta privada)
 GET http://localhost:3000/api/v1/users
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZGIxYjE2OTY3MzMxMWZmNDY1ODI3NSIsImVtYWlsIjoiaG9tZXJvMUBleGFtcGxlLmNvbSIsImlhdCI6MTc1OTY2NjU0OX0.abf1JgwwTySdLbbC_2zcwCc3bh5v72cHhxKD_pBiEpE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZGIxYjE2OTY3MzMxMWZmNDY1ODI3NSIsImVtYWlsIjoiaG9tZXJvMUBleGFtcGxlLmNvbSIsImlhdCI6MTc1OTc5NDAxM30.VXNyyn-HZeCo60gXBdqNTDDtezEGMtMebIURewj3rWY
 
 ### upgrade user plan
 
@@ -60,9 +60,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZGIxYWI5N
 Content-Type: application/json
 
 {
-  "title": "Nueva tarea",
-  "description": "Descripción de la tarea",
-  "assignedTo": "68db1b169673311ff4658275",
+  "title": "Nueva tarea Pablo",
+  "description": "Descripción de la tarea, creada por pablo para testear el middleware",
+  "assignedTo": "68db1ab970a8a7da4b9e6395",
   "projectId": "68db2a50bd36261bd5ce5f06" 
 }
 

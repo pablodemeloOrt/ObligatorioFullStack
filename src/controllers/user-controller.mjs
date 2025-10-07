@@ -44,7 +44,7 @@ export const loginUser = async (req, res) => {
 
     if (validatePassword) {
 
-        const token = jwt.sign({ id: user._id, email: email }, process.env.PASS_JWT);
+        const token = jwt.sign({ id: user._id, email: email, tipoUsuario: user.tipoUsuario }, process.env.PASS_JWT);
         res.status(200).json({ token: token })
     } else {
         res.status(401).json({ message: "Error en login, verifique credenciales" });
