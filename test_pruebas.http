@@ -19,9 +19,18 @@ Content-Type: application/json
   "projectId": "68db2a50bd36261bd5ce5f06" 
 }
 
-### Borrar una tarea
-DELETE http://localhost:3000/api/v1/tasks/68e45beb2bd82ed7bf46b360
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZTQ0YzdmMGE3MWMyMTY5ZTMyMmZkMSIsImVtYWlsIjoidGVzdHVzZXJAb3J0LmNvbSIsInRpcG9Vc3VhcmlvIjoiYWRtaW4iLCJpYXQiOjE3NTk3OTY5MzR9.elfG49rWos_hxqzp9Yrix5yBXH4gcl8qnInZZjVMke4
+### Actualizar una tarea
+PATCH http://localhost:3000/api/v1/tasks/68db283065f7edc6bfe2eb0d
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZGIxYjE2OTY3MzMxMWZmNDY1ODI3NSIsImVtYWlsIjoiaG9tZXJvMUBleGFtcGxlLmNvbSIsImlhdCI6MTc1OTE5NjU5OH0.o0tWgreO2r5ZUQdiu0I83tZYErO17epIOJssrz9UO3Q
+Content-Type: application/json
+
+{
+  "title": "Tarea 11",
+  "description": "Tarea modificada",
+  "assignedTo": "68db1b169673311ff4658275", 
+  "projectId": "68db2a50bd36261bd5ce5f06"
+}
+
 
 ### Obtener todos los usuarios (ruta privada)
 GET http://localhost:3000/api/v1/users

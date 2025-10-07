@@ -60,6 +60,18 @@ export const upgradePlan = async (req, res) => {
         res.status(400).json({ message: error.message || "No pudo actualizar el plan del usuario" });
     }
 }
-        
+
+//cambia el plan del usuario
+export const downgradePlan = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const userUpdated = await userRepository.downgradePlan({ _id: id });
+        res.status(200).json({ user: userUpdated });
+    } catch (error) {
+        res.status(400).json({ message: error.message || "No pudo cambiar el plan del usuario" });
+    }
+}
+
+
 
 

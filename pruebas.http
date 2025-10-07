@@ -70,7 +70,16 @@ Content-Type: application/json
 GET http://localhost:3000/api/v1/tasks/project/68db2a50bd36261bd5ce5f06
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZGIxYjE2OTY3MzMxMWZmNDY1ODI3NSIsImVtYWlsIjoiaG9tZXJvMUBleGFtcGxlLmNvbSIsImlhdCI6MTc1OTE5NjU5OH0.o0tWgreO2r5ZUQdiu0I83tZYErO17epIOJssrz9UO3Q
 
+### Actualizar una tarea
+PATCH http://localhost:3000/api/v1/tasks/68db283065f7edc6bfe2eb0d
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZGIxYjE2OTY3MzMxMWZmNDY1ODI3NSIsImVtYWlsIjoiaG9tZXJvMUBleGFtcGxlLmNvbSIsImlhdCI6MTc1OTE5NjU5OH0.o0tWgreO2r5ZUQdiu0I83tZYErO17epIOJssrz9UO3Q
+Content-Type: application/json
 
+{
+  "title": "Tarea actualizada",
+  "description": "Descripción actualizada de la tarea",
+  "status": "In Progress"
+}
 ### Borrar una tarea
 DELETE http://localhost:3000/api/v1/tasks/68db283065f7edc6bfe2eb0d
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZGIxYWI5NzBhOGE3ZGE0YjllNjM5NSIsImVtYWlsIjoiaG9tZXJvQGV4YW1wbGUuY29tIiwiaWF0IjoxNzU5MTkyNjIxfQ.XIT-KWNQm0EhT5dOcwGee3y24R3D2X2ruzkn_6aZgIQ
@@ -83,3 +92,4 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDM0NDUxM
 ### Obtener las categorias de tasks
 GET http://localhost:3000/api/v1/tasks/categories
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZGIxYWI5NzBhOGE3ZGE0YjllNjM5NSIsImVtYWlsIjoiaG9tZXJvQGV4YW1wbGUuY29tIiwiaWF0IjoxNzU5MTkyNjIxfQ.XIT-KWNQm0EhT5dOcwGee3y24R3D2X2ruzkn_6aZgIQ
+
