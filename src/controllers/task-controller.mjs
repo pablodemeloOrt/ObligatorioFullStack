@@ -90,6 +90,7 @@ export const updateTask = async (req, res) => {
         }
         res.status(200).json({ tarea: updatedTask });
     } catch (error) {
+        console.log('Error al modificar tarea:', error);
         res.status(400).json({ message: error.message || "No pudo actualizar la tarea" });
     }
 }
