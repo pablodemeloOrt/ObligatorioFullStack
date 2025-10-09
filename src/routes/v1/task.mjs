@@ -22,9 +22,13 @@ routes.get("/:id", validateRequest(validateTaskIdParam, reqValidate.PARAM), getT
 // Obtener todas las tareas del usuario autenticado en un proyecto específico
 routes.get("/project/:projectId", validateRequest(validateProjectIdParam, reqValidate.PARAM), getTasksByUserAndProject);
 // Actualizar una tarea (PATCH)
-routes.put("/:id", validateRequest(validateTaskIdParam, reqValidate.PARAM), 
-validateRequest(validateUpdateTask, reqValidate.BODY), 
-findTaskMiddleware, (req, res, next) => canEditTask(req.task)(req, res, next), updateTask); 
+routes.put("/:id", 
+	validateRequest(validateTaskIdParam, reqValidate.PARAM),
+	validateRequest(validateUpdateTask, reqValidate.BODY),
+	findTaskMiddleware,
+	canEditTask,
+	updateTask
+);
 //Ayuda de IAG, para implementar el middleware de canEditTask, no sabia como pasarle el task al middleware, asi que cree un middleware intermedio que busca la tarea y la asigna al req
 
 // Eliminar una tarea

@@ -71,14 +71,14 @@ GET http://localhost:3000/api/v1/tasks/project/68db2a50bd36261bd5ce5f06
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZGIxYjE2OTY3MzMxMWZmNDY1ODI3NSIsImVtYWlsIjoiaG9tZXJvMUBleGFtcGxlLmNvbSIsImlhdCI6MTc1OTE5NjU5OH0.o0tWgreO2r5ZUQdiu0I83tZYErO17epIOJssrz9UO3Q
 
 ### Actualizar una tarea
-PATCH http://localhost:3000/api/v1/tasks/68db283065f7edc6bfe2eb0d
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZGIxYjE2OTY3MzMxMWZmNDY1ODI3NSIsImVtYWlsIjoiaG9tZXJvMUBleGFtcGxlLmNvbSIsImlhdCI6MTc1OTE5NjU5OH0.o0tWgreO2r5ZUQdiu0I83tZYErO17epIOJssrz9UO3Q
+PUT http://localhost:3000/api/v1/tasks/68e71b80ccbb6db8d0c11b3e
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZTcxYjc0Y2NiYjZkYjhkMGMxMWIzOCIsImVtYWlsIjoidGVzdHVzZXJAb3J0LmNvbSIsInRpcG9Vc3VhcmlvIjoidXNlciIsImlhdCI6MTc1OTk3NjMxMX0.ucmdNIPvgCT8M1TOWq3Qi8YhtEhjq8KPzICgjGrg2pY
 Content-Type: application/json
 
 {
-  "title": "Tarea actualizada",
-  "description": "Descripción actualizada de la tarea",
-  "status": "In Progress"
+  "title": "Tarea 11.1",
+  "description": "Tarea modificada por Pablo",
+  "projectId": "68db2a50bd36261bd5ce5f06"
 }
 ### Borrar una tarea
 DELETE http://localhost:3000/api/v1/tasks/68db283065f7edc6bfe2eb0d

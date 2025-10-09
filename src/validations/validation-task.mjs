@@ -13,6 +13,7 @@ export const validateUpdateTask = Joi.object({
     title: Joi.string().min(3).max(40),
     description: Joi.string().allow(""),
     projectId: Joi.string(),
+    assignedTo: Joi.string()
 });
 
 // Para obtener/borrar una tarea por id

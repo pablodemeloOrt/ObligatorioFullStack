@@ -18,16 +18,13 @@ export const canCreateTask = (req, res, next) => {
 };
 
 // Editar tarea
-export const canEditTask = (task) => (req, res, next) => {
+export const canEditTask = (req, res, next) => {
     const user = req.user;
+    const task = req.task; // Asegúrate de que req.task esté seteado por un middleware previo
     if (user.tipoUsuario === "admin") {
         return next();
     }
-
-    if (
-        String(user.tipoUsuario) === "user" &&
-        (!assignedTo || String(assignedTo) === String(user.id))
-    ) {
+    if (user.tipoUsuario === "user" && String(task.assignedTo) === String(user.id || user._id)) {
         return next();
     }
     return res.status(403).json({ message: "Solo puedes editar tus propias tareas" });
