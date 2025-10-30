@@ -5,13 +5,14 @@ import {
 	deleteProject,
 	updateProject,
 	replaceProject,
-	getProjectByUser
+	getProjectByUser,
+	addMemberToProject
 } from "../../controllers/project-controller.mjs";
 import { validateProjectIdParam } from "../../validations/validation-task.mjs";
 import { authMiddleware } from "../../middleware/auth-middleware.mjs";
 import { validateRequest } from "../../middleware/validation.middleware.mjs";
 import reqValidate from "../../constants/request-validate-constants.mjs";
-import { validateUpdateProject, validateCreateProject } from "../../validations/validation-project.mjs";
+import { validateUpdateProject, validateCreateProject, validateAddMember } from "../../validations/validation-project.mjs";
 
 
 const routes = express.Router();
@@ -36,5 +37,8 @@ routes.put("/:id", validateRequest(validateUpdateProject, reqValidate.BODY), rep
 
 // Eliminar un proyecto
 routes.delete("/:id", validateRequest(validateProjectIdParam, reqValidate.PARAMS), deleteProject);
+
+// Agregar un miembro a un proyecto
+routes.post("/:id/members", validateRequest(validateProjectIdParam, reqValidate.PARAMS), validateRequest(validateAddMember, reqValidate.BODY), addMemberToProject);
 
 export default routes;

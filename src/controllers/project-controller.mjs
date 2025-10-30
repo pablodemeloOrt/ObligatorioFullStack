@@ -71,3 +71,24 @@ export const getProjectByUser = async (req, res) => {
     }   
 }
 
+export const addMemberToProject = async (req, res) => {
+    try {
+        const projectId = req.params.id;
+        const { userId } = req.body;
+        
+        if (!userId) {
+            return res.status(400).json({ message: "Falta el userId del miembro a agregar" });
+        }
+
+        const projectUpdated = await projectRepository.addMember(projectId, userId);
+        
+        if (!projectUpdated) {
+            return res.status(404).json({ message: "Proyecto no encontrado" });
+        }
+
+        res.status(200).json({ project: projectUpdated });
+    } catch (error) {
+        res.status(400).json({ message: "No pudo agregar el miembro al proyecto" });
+    }
+}
+

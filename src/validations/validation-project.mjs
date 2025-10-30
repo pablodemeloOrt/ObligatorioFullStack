@@ -16,3 +16,8 @@ export const validateUpdateProject = Joi.object({
 export const validateProjectIdParam = Joi.object({
     id: Joi.string().required(),
 });
+
+// Para agregar un miembro a un proyecto
+export const validateAddMember = Joi.object({
+    userId: Joi.string().required(),
+});

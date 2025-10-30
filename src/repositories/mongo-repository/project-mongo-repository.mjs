@@ -39,6 +39,15 @@ const projectMongoRepository = {
     //actualiza el proyecto
     async updateProject(_id, updateData) {
         return Project.findByIdAndUpdate(_id, updateData, { new: true });
+    },
+
+    //agregar un miembro al proyecto
+    async addMember(projectId, userId) {
+        return Project.findByIdAndUpdate(
+            projectId,
+            { $addToSet: { members: userId } }, // $addToSet evita duplicados
+            { new: true }
+        );
     }
 }
 export default projectMongoRepository;

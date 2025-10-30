@@ -14,7 +14,7 @@ const app = express();
 const port = process.env.port ?? 3000;
 
 connectMongo();
-connectRedis();
+//connectRedis();
 
 app.use(express.json());
 
@@ -52,5 +52,5 @@ app.use((err, req, res, next) => {
 
 });
 
-export default app;
-/*app.listen(port, () => console.log(`Escuchando en el puerto: ${port}`));*/
+// export default app;
+app.listen(port, () => console.log(`Escuchando en el puerto: ${port}`));
