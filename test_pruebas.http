@@ -1,34 +1,37 @@
-//variable para token
-
 ### Login y guardar token
 POST http://localhost:3000/api/v1/login
 Content-Type: application/json
+
 {
-  "email": "homero@example.com",
+  "email": "testuser@ort.com",
   "password": "123456"
 }
 
-
-
-### Obtener todos los proyectos
-GET http://localhost:3000/api/v1/projects
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZGIxYWI5NzBhOGE3ZGE0YjllNjM5NSIsImVtYWlsIjoiaG9tZXJvQGV4YW1wbGUuY29tIiwiaWF0IjoxNzU5MTkyMDQ5fQ.LQIskKxAFjJ2gJwFbRbA65VGp-KA6WRmownIybUSjEQ
-
-### Obtener un proyecto por ID
-GET http://localhost:3000/api/v1/projects/68db2597ce047d41cc85413d
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZGIxYWI5NzBhOGE3ZGE0YjllNjM5NSIsImVtYWlsIjoiaG9tZXJvQGV4YW1wbGUuY29tIiwiaWF0IjoxNzU5MTkwODIzfQ.vv7hAVGzpfSHSmq5h6tVpESMxGmpnGrd-7FkVX4-nr4
-
-### Actualizar un proyecto
-PUT http://localhost:3000/api/v1/projects/66eef0fa2f27d902b27f0a33
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZGIxYWI5NzBhOGE3ZGE0YjllNjM5NSIsImVtYWlsIjoiaG9tZXJvQGV4YW1wbGUuY29tIiwiaWF0IjoxNzU5MTkwODIzfQ.vv7hAVGzpfSHSmq5h6tVpESMxGmpnGrd-7FkVX4-nr4
+### crear una tarea
+POST http://localhost:3000/api/v1/tasks 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZGIxYjE2OTY3MzMxMWZmNDY1ODI3NSIsImVtYWlsIjoiaG9tZXJvMUBleGFtcGxlLmNvbSIsInRpcG9Vc3VhcmlvIjoidXNlciIsImlhdCI6MTc1OTc5NTk4MH0.lCal9heIu69tLtWHk0RYZp6XZmeeVx0UC85l9gqjLzM
 Content-Type: application/json
 
 {
-    "name": "Proyecto Obligatorio Actualizado",
-    "description": "Descripción actualizada",
-    "category": "Testing"
+  "title": "Nueva tarea Pablo",
+  "description": "Descripción de la tarea, creada por pablo para testear el middleware",
+  "assignedTo": "68db1b169673311ff4658275",
+  "projectId": "68db2a50bd36261bd5ce5f06" 
+}
+
+### Actualizar una tarea
+PATCH http://localhost:3000/api/v1/tasks/68db283065f7edc6bfe2eb0d
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZGIxYjE2OTY3MzMxMWZmNDY1ODI3NSIsImVtYWlsIjoiaG9tZXJvMUBleGFtcGxlLmNvbSIsImlhdCI6MTc1OTE5NjU5OH0.o0tWgreO2r5ZUQdiu0I83tZYErO17epIOJssrz9UO3Q
+Content-Type: application/json
+
+{
+  "title": "Tarea 11",
+  "description": "Tarea modificada",
+  "assignedTo": "68db1b169673311ff4658275", 
+  "projectId": "68db2a50bd36261bd5ce5f06"
 }
 
 
-
-
+### Obtener todos los usuarios (ruta privada)
+GET http://localhost:3000/api/v1/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZGIxYjE2OTY3MzMxMWZmNDY1ODI3NSIsImVtYWlsIjoiaG9tZXJvMUBleGFtcGxlLmNvbSIsImlhdCI6MTc1OTc5NDAxM30.VXNyyn-HZeCo60gXBdqNTDDtezEGMtMebIURewj3rWY

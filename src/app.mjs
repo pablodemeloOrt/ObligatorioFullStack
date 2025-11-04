@@ -7,17 +7,23 @@ import v1Users from "./routes/v1/user.mjs";
 import v1Publicas from "./routes/v1/public.mjs";
 import v1Projects from "./routes/v1/project.mjs";
 import { xssSanitizer } from "./middleware/sanitizer-middleware.mjs";
+import serverless from "serverless-http";
+
 
 const app = express();
 const port = process.env.port ?? 3000;
 
 connectMongo();
-connectRedis();
+//connectRedis();
 
 app.use(express.json());
 
 //middelware sanitizado
 app.use(xssSanitizer)
+
+app.get("/", (req, res) => {
+  res.send("API REST con Express y MongoDB");
+});
 
 app.use("/api/v1", v1Publicas);
 
@@ -31,7 +37,7 @@ app.use("/api/v1/projects", v1Projects);
 app.get("/api/v1", (req, res) => {
   res.json({
     status: "ok",
-    message: "API funcionando 🚀",
+    message: "API funcionando",
     timestamp: new Date().toISOString()
   });
 });
@@ -44,19 +50,7 @@ app.use((err, req, res, next) => {
         res.status(500).json({ message: "Error no controlado" });
     }
 
-}
+});
 
-
-
-)
-
-app.listen(port, () => console.log(`Escuchando en el puerto: ${port}`));
-
-
-
-
-
-
-
-
-
+export default app;
+//app.listen(port, () => console.log(`Escuchando en el puerto: ${port}`));

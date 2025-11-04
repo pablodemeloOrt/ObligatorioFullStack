@@ -65,8 +65,9 @@ const taskMongoRepository = {
     },
 
     //actualiza la tarea
-    async updateTask() {
-        return Task.findOneAndUpdate(data);
+    async updateTask(data) {
+        const { _id, ...updateData } = data;
+        return Task.findOneAndUpdate({ _id }, updateData, { new: true });
     }
 }
 

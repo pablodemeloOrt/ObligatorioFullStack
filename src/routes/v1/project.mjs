@@ -5,9 +5,15 @@ import {
 	deleteProject,
 	updateProject,
 	replaceProject,
-	getProjectByUser
+	getProjectByUser,
+	addMemberToProject
 } from "../../controllers/project-controller.mjs";
+import { validateProjectIdParam } from "../../validations/validation-task.mjs";
 import { authMiddleware } from "../../middleware/auth-middleware.mjs";
+import { validateRequest } from "../../middleware/validation.middleware.mjs";
+import reqValidate from "../../constants/request-validate-constants.mjs";
+import { validateUpdateProject, validateCreateProject, validateAddMember } from "../../validations/validation-project.mjs";
+
 
 const routes = express.Router();
 
@@ -15,21 +21,24 @@ const routes = express.Router();
 routes.use(authMiddleware);
 
 // Crear proyecto
-routes.post("/", createProject);
+routes.post("/", validateRequest(validateCreateProject, reqValidate.BODY), createProject);
 
 // Obtener todos los proyectos del usuario autenticado
-routes.get("/", getProjectsByUser);
+routes.get("/", validateRequest(validateProjectIdParam, reqValidate.PARAMS), getProjectsByUser);
 
 // Obtener un proyecto por id (y usuario)
-routes.get("/:id", getProjectByUser);
+routes.get("/:id", validateRequest(validateProjectIdParam, reqValidate.PARAMS), getProjectByUser);
 
 // Actualizar parcialmente un proyecto (PATCH)
-routes.patch("/:id", updateProject);
+routes.patch("/:id", validateRequest(validateUpdateProject, reqValidate.BODY), updateProject);
 
 // Reemplazar completamente un proyecto (PUT)
-routes.put("/:id", replaceProject);
+routes.put("/:id", validateRequest(validateUpdateProject, reqValidate.BODY), replaceProject);
 
 // Eliminar un proyecto
-routes.delete("/:id", deleteProject);
+routes.delete("/:id", validateRequest(validateProjectIdParam, reqValidate.PARAMS), deleteProject);
+
+// Agregar un miembro a un proyecto
+routes.post("/:id/members", validateRequest(validateProjectIdParam, reqValidate.PARAMS), validateRequest(validateAddMember, reqValidate.BODY), addMemberToProject);
 
 export default routes;

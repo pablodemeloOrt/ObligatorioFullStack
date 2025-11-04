@@ -31,7 +31,7 @@ export const createTask = async (req, res) => {
         // Contar tareas del usuario en el proyecto específico
         const projectTasks = await taskRepository.getAllTask({ assignedTo: userId, project: task.projectId });
         if (user.plan === Plan.PLUS && projectTasks.length >= 10) {
-            return res.status(403).json({ message: "Los usuarios PLUS solo pueden tener hasta 10 tareas por proyecto" });
+            return res.status(403).json({ message: "Los usuarios PLUS tienen como límite 10 tareas por proyecto" });
         }
 
         const tarea = await taskRepository.createTask(newTask);
@@ -77,6 +77,29 @@ export const getTasksByUserAndProject = async (req, res) => {
         throw createError("No pudo obtener las tareas", 400);
     }
 }
+
+//obtener TODAS las tareas de un proyecto (verificando que el usuario sea miembro)
+export const getAllTasksByProject = async (req, res) => {
+    try {
+        const { id: userId } = req.user;
+        const { projectId } = req.params;
+        
+        // Verificar que el usuario sea miembro del proyecto
+        const projectRepository = (await import("../repositories/project-repository.mjs")).default;
+        const project = await projectRepository.getProjectByUser({ _id: projectId, members: userId });
+        
+        if (!project) {
+            return res.status(403).json({ message: "No tienes acceso a este proyecto" });
+        }
+        
+        // Obtener todas las tareas del proyecto
+        const allProjectTasks = await taskRepository.getAllTask({ project: projectId });
+        res.status(200).json({ tareas: allProjectTasks });
+    } catch (error) {
+        res.status(400).json({ message: error.message || "No pudo obtener las tareas del proyecto" });
+    }
+}
+
 //modificar una tarea
 
 export const updateTask = async (req, res) => {
@@ -90,7 +113,8 @@ export const updateTask = async (req, res) => {
         }
         res.status(200).json({ tarea: updatedTask });
     } catch (error) {
-        res.status(400).json({ message: "No pudo actualizar la tarea" });
+        console.log('Error al modificar tarea:', error);
+        res.status(400).json({ message: error.message || "No pudo actualizar la tarea" });
     }
 }
 

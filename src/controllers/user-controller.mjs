@@ -6,13 +6,21 @@ import "dotenv/config";
 export const createUser = async (req, res) => {
     try {
         const user = req.body;
+        // Validación de datos requeridos
+        if (!user.name || !user.email || !user.password) {
+            return res.status(400).json({ message: "Faltan datos requeridos (name, email o password)" });
+        }
         const { password } = user;
         const hashPassword = await bcrypt.hash(password, 10);
         user.password = hashPassword;
         console.log('user', user)
         const userSaved = await userRepository.createUser(user);
-        res.status(200).json({ usuario: userSaved });
+        res.status(201).json({ usuario: userSaved });
     } catch (error) {
+        // Validación de usuario duplicado
+        if (error.code === 11000 && error.keyPattern && error.keyPattern.email) {
+            return res.status(409).json({ message: "El email ya está registrado" });
+        }
         res.status(400).json({ message: "No pudo crear usuario" });
     }
 }
@@ -36,8 +44,8 @@ export const loginUser = async (req, res) => {
 
     if (validatePassword) {
 
-        const token = jwt.sign({ id: user._id, email: email }, process.env.PASS_JWT);
-        res.status(200).json({ token: token })
+        const token = jwt.sign({ id: user._id, email: email, tipoUsuario: user.tipoUsuario }, process.env.PASS_JWT);
+        res.status(200).json({ token: token, userId: user._id });
     } else {
         res.status(401).json({ message: "Error en login, verifique credenciales" });
     }
@@ -52,6 +60,18 @@ export const upgradePlan = async (req, res) => {
         res.status(400).json({ message: error.message || "No pudo actualizar el plan del usuario" });
     }
 }
-        
+
+//cambia el plan del usuario
+export const downgradePlan = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const userUpdated = await userRepository.downgradePlan({ _id: id });
+        res.status(200).json({ user: userUpdated });
+    } catch (error) {
+        res.status(400).json({ message: error.message || "No pudo cambiar el plan del usuario" });
+    }
+}
+
+
 
 

@@ -24,8 +24,12 @@ export const authMiddleware = (req, res, next) => {
             res.status(401).json({ errors: error.details.map(d => d.message) })
         } else {
             //se asigna el usuario al req user
-            console.log('value', value)
-            req.user = value;
+
+            req.user = {
+                ...value,
+                tipoUsuario: value.tipoUsuario
+            };
+            console.log('Value', req.user)
             //se sigue adelante con next
             next();
         }
