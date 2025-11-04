@@ -9,8 +9,8 @@ const routes = express.Router();
 
 routes.get("/", authMiddleware, getAllUsers);
 //routes.get("/", getAllUsers);
-routes.patch("/plan/upgrade/:id", authMiddleware, validateRequest(validateLogin, reqValidate.BODY), upgradePlan);
-routes.patch("/plan/downgrade/:id", authMiddleware, validateRequest(validateLogin, reqValidate.BODY), downgradePlan);
+routes.patch("/plan/upgrade/:id", authMiddleware, upgradePlan);
+routes.patch("/plan/downgrade/:id", authMiddleware, downgradePlan);
 
 
 
