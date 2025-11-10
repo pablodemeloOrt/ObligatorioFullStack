@@ -12,7 +12,9 @@ const userSchema = new mongoose.Schema({
     },
     age: { type: Number },
     plan: { type: String, enum: Object.values(Plan), default: Plan.PLUS },
-    tipoUsuario: { type: String, enum: ['admin', 'user'], default: 'user' }
+    tipoUsuario: { type: String, enum: ['admin', 'user'], default: 'user' },
+    profileImage: { type: String }, // URL de Cloudinary
+    profileImagePublicId: { type: String } // Public ID para eliminar de Cloudinary
 
 }, {
     timestamps: true
