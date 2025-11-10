@@ -6,7 +6,7 @@ import v1Tasks from "./routes/v1/task.mjs";
 import v1Users from "./routes/v1/user.mjs";
 import v1Publicas from "./routes/v1/public.mjs";
 import v1Projects from "./routes/v1/project.mjs";
-import v1Images from "./routes/v1/image.mjs";
+import v1Images from "./routes/v1/images.mjs";
 import { xssSanitizer } from "./middleware/sanitizer-middleware.mjs";
 import serverless from "serverless-http";
 
