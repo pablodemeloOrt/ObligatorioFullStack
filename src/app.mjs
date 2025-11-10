@@ -6,6 +6,7 @@ import v1Tasks from "./routes/v1/task.mjs";
 import v1Users from "./routes/v1/user.mjs";
 import v1Publicas from "./routes/v1/public.mjs";
 import v1Projects from "./routes/v1/project.mjs";
+import v1Images from "./routes/v1/image.mjs";
 import { xssSanitizer } from "./middleware/sanitizer-middleware.mjs";
 import serverless from "serverless-http";
 
@@ -14,7 +15,7 @@ const app = express();
 const port = process.env.port ?? 3000;
 
 connectMongo();
-//connectRedis();
+
 
 app.use(express.json());
 
@@ -32,6 +33,8 @@ app.use("/api/v1/users", v1Users);
 app.use("/api/v1/tasks", v1Tasks);
 
 app.use("/api/v1/projects", v1Projects);
+
+app.use("/api/v1/images", v1Images);
 
 
 app.get("/api/v1", (req, res) => {
