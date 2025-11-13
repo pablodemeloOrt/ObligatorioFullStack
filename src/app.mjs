@@ -22,6 +22,27 @@ app.use(express.json());
 //middelware sanitizado
 app.use(xssSanitizer)
 
+// CORS middleware - responde preflight OPTIONS y agrega headers necesarios
+app.use((req, res, next) => {
+  const allowedOrigins = [process.env.FRONTEND_URL || "http://localhost:5173", "https://obligatorio-full-stack-fe.vercel.app"];
+  const origin = req.headers.origin;
+  if (origin && allowedOrigins.includes(origin)) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+    // Ensure caches differentiate responses by Origin
+    res.setHeader("Vary", "Origin");
+  }
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Requested-With, Accept");
+  // If you don't use cookies, it's safe to keep this false; set to true if you plan to send credentials
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+
+  if (req.method === "OPTIONS") {
+    // Respond immediately to preflight
+    return res.sendStatus(204);
+  }
+  next();
+});
+
 app.get("/", (req, res) => {
   res.send("API REST con Express y MongoDB");
 });
